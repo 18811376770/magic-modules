@@ -568,10 +568,6 @@ func (r *Resource) Validate() {
 	for _, sample := range r.Samples {
 		sample.Validate(r.Name)
 	}
-
-	if r.Async != nil {
-		r.Async.Validate()
-	}
 }
 
 // ====================
@@ -2526,7 +2522,7 @@ func (r Resource) TGCTestIgnorePropertiesToStrings() []string {
 
 	for _, e := range r.Examples {
 		for _, p := range e.IgnoreReadExtra {
-			props = append(props, p)
+			props = append(props, strings.ReplaceAll(p, ".0.", "."))
 		}
 	}
 
